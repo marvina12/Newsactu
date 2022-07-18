@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{# title est le nom dans la barre du navigateur il ne s'agit pas d'un h1 #}
+{% block title %} Tableau de bord{% endblock %} 
+
+{% block body %}
+
+<h1 class="text-center my-4"> Tableau de Bord</h1>
+
+<div class="row">
+    <div class="col- mx-auto">
+    
+         {% include 'include/flashes.html.twig' %}
+   
+    </div>
+</div>
+
+
+
+
+{% endblock %}
