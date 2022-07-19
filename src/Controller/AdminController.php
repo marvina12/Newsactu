@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
@@ -21,7 +20,7 @@ class AdminController extends AbstractController
     {
        return $this->render("admin/show_dashboard.html.twig",[
        ]);
-   }
+    }
 
     public function createArticle(Request $request, EntityManagerInterface $entitymanager, SluggerInterface $slugger): Response
 
