@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,11 +21,12 @@ class ArticleFormType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre'
             ])
-            ->add('subtitle', TextType::class, [
+            ->add('subtitlr', TextType::class, [
                 'label' => 'Sous-titre'
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu'
+                
             ])
             ->add('photo', FileType::class, [
                 'label' => 'Photo',
@@ -31,6 +34,11 @@ class ArticleFormType extends AbstractType
                 'attr' => [
                     'data-default-file' => $options['photo']
                 ]
+            ])
+            ->add('category', EntityType::class,[
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Categorie',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',
