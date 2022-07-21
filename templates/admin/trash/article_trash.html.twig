@@ -42,7 +42,7 @@
                         <td>{{ article.updatedAt | date('d/m/Y') }}</td>
                         <td>
                             <a href="{{ path('restore_article', {"id": article.id}) }}" class="text-info" title="Restaurer l'article"><i class="fa-solid fa-trash-arrow-up"></i></a>
-                            <a href="{{ path('hard_delete_article', {"id": article.id}) }}" class="text-danger" title="Supprimer definitivement l'article" onclick="return confirm('Voulez-vous supprimer definitivement cet article ?')"><i class="fa solid fa-times-circle"></a>
+                            <a href="{{ path('hard_delete_article', {'id': article.id}) }}" class="text-danger" title="Supprimer définitivement l'article" onclick="return confirm('Voulez-vous supprimer définitivement cet article ?')"><i class="fa-solid fa-times-circle"></i></a>
                         </td>
                     </tr>
                     {% else %}
