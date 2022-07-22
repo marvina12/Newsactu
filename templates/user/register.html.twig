@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+{# title est le nom dans la barre du navigateur il ne s'agit pas d'un h1 #}
+{% block title %} Inscription{% endblock %} 
+
+{% block body %}
+
+{% if action is not defined %}
+<h1 class="text-center my-4"> Inscription</h1>
+{% else %}
+<h1 class="text-center my-4"> Changer le mot de passe</h1>
+{% endif %}
+
+<div class="row">
+    <div class="col-6 mx-auto">
+
+    {{ form_start(form) }}
+     
+        <div class="row">
+            <div class=col-4>{{ form_row(form.firstname) }}</div>
+            <div class=col-4>{{ form_row(form.lastname) }}</div>
+        </div>
+
+
+    {{ form_end(form) }}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

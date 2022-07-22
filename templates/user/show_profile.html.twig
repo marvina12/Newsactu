@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+{# title est le nom dans la barre du navigateur il ne s'agit pas d'un h1 #}
+{% block title %} Mon espace personnel{% endblock %} 
+
+{% block body %}
+
+<h1 class="text-center my-4"> Mon espace personnel</h1>
+
+<div class="row">
+    <div class="col- mx-auto">
+
+        {% include 'include/flashes.html.twig' %}
+     
+    </div>
+</div>
+<div class="row">
+    <div class="col-10"></div>
+
+        <div class="card text-center">
+            <div class="card-header">
+                {{ app.user.firstname }} {{ app.user.lastname | capitalize}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Total articles publiés: {{ articles | length }}</h5>
+                <p class="card-text">Mon email : {{ app.user.email }}</p>
+                <a href="{{ path('change_password') }}" class="btn btn-warning">Changer mon mot de passe</a>
+            </div>
+            <div class="card-footer text-muted">
+                Compte crée le : {{ app.user.createdAt | date('d/m/Y') }} | Modifié : {{ app.user.updatedAt | date('d/m/Y') }}
+            </div>
+        </div>
+</div>
+
+
+{% endblock %}
