@@ -5,7 +5,10 @@ namespace App\Controller;
 use DateTime;
 
 use App\Entity\User;
+use App\Entity\Article;
+use App\Form\ChangePasswordFormType;
 use App\Form\RegisterFormType;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,5 +49,57 @@ class UserController extends AbstractController
         return $this->render("user/register.html.twig",[
             'form'=> $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/profile/mon-espace-perso", name="show_profile", methods={"GET"})
+     */    
+    public function showprofile(EntityManagerInterface $entitymanager): Response
+    {
+        $articles = $entitymanager->getRepository( Article::class)->findBy(['author' => $this->getUser()]);
+
+        return $this->render("user/show_profile.html.twig",[
+
+            'articles' => $articles 
+        ]);
+
+    }
+
+    
+    /**
+     * @Route("/profile/changer-mon-mot-de-passe", name="change_password", methods={"GET|POST"})
+     */    
+    public function changePassword(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Request $request): Response
+    {
+        $form = $this->createForm(ChangePasswordFormType::class)
+            ->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+
+            /** @var User $user */
+            $user =$entityManager->getRepository(User::class)->findOneBy(['id' => $this->getUser()]);
+
+            $user->setUpdatedAt(new DateTime());
+
+            $user->setPassword($passwordHasher->hashPassword(
+                $user, $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Votre mot de passe a bien été changé");
+            return $this->redirectToRoute('show_profile');
+
+        }
+
+        return $this->render('user/change_password.html.twig',[
+            'form' => $form->createView()
+            
+        ]);
+        
+
+
     }
 }
